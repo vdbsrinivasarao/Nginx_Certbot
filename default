@@ -1,24 +1,24 @@
 server {
 
-	index index.html index.htm index.nginx-debian.html;
-    server_name tuhindemo.ddns.net; # tuhindemo.ddns.net> change to your no ip url
+        index index.html index.htm index.nginx-debian.html;
+    server_name vdbtomcat.hopto.org;
 
 
-	location / {
+        location / {
     proxy_pass http://localhost:8082/;
     proxy_http_version 1.1;
     proxy_set_header Upgrade $http_upgrade;
     proxy_set_header Connection 'upgrade';
     proxy_set_header Host $host;
     proxy_cache_bypass $http_upgrade;
-    
+
 }
 
 
-    listen [::]:443 ssl ipv6only=on; 
+    listen [::]:443 ssl ipv6only=on;
     listen 443 ssl; # managed by Certbot
-    ssl_certificate /etc/letsencrypt/live/tuhindemo.ddns.net/fullchain.pem; # tuhindemo.ddns.net> change to your no ip url
-    ssl_certificate_key /etc/letsencrypt/live/tuhindemo.ddns.net/privkey.pem; # tuhindemo.ddns.net> change to your no ip url
+    ssl_certificate /etc/letsencrypt/live/vdbtomcat.hopto.org/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/vdbtomcat.hopto.org/privkey.pem;
     include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
     ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
 
@@ -26,13 +26,10 @@ server {
 server {
     if ($host = tuhindemo.ddns.net) {
         return 301 https://$host$request_uri;
-    } 
+    }
 
 
-	listen 80 ;
-	listen [::]:80 ;
-    server_name tuhindemo.ddns.net; #tuhindemo.ddns.net> change to your no ip url
-    return 404; 
-
-
-}
+        listen 80 ;
+        listen [::]:80 ;
+    server_name vdbtomcat.hopto.org;
+    return 404;
